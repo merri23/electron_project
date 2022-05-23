@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Linux operasion ulgamynda serwer bilen işlemegi programma üpjünçiligi
+      arkaly awtomatlaşdyrmak
+    </title>
+    <link rel="stylesheet" href="../assets/libraries/css/photon.min.css" />
+    <link rel="stylesheet" href="../assets/libraries/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <div class="tab-group">
+      <div
+        class="tab-item"
+        id="nginx"
+        type="button"
+        onclick="showTab(event, 'income')"
+      >
+        <span class="icon icon-cancel icon-close-tab"></span>
+        Nginx
+      </div>
+      <div
+        class="tab-item"
+        id="apache"
+        type="button"
+        onclick="showTab(event, 'expense')"
+      >
+        <span class="icon icon-cancel icon-close-tab"></span>
+        Apache
+      </div>
+      <div
+        class="tab-item"
+        id="compare"
+        type="button"
+        onclick="showTab(event, 'names')"
+      >
+        <span class="icon icon-cancel icon-close-tab"></span>
+        Nginx vs Apache
+      </div>
+      <div class="tab-item tab-item-fixed">
+        <span class="icon icon-plus"></span>
+      </div>
+    </div>
+
+    <!-- First tab  -->
+    <div id="income" class="window-content" style="display: block">
+      <div class="container text-decoration">
+        <h1 style="text-align: center">Nginx</h1>
+        <p>
+          Nginx, dogry sazlanylanda Apache-den ýokary bolan güýçli web serwer
+          ýerleşdiriş guralydyr. Nginx-iň gerimi gaty giň - HTTP keşden başlap,
+          tersine proksi serwerini döretmeklige çenlidir.
+        </p>
+        <p>
+          Indi Nginx, dünýädäki ähli saýtlaryň takmynan 30,8% -ine hyzmat edýär,
+          web serwerlerinde köpçülige maglumat bardyr.
+        </p>
+        <img
+          src="../assets/images/nginx_1.webp"
+          style="width: inherit; margin: 0.5rem auto"
+        />
+        <div class="row">
+          <h1>Nginx barada düşünje</h1>
+          <p>
+            Nginx (NGINX, Motor-X) sapaksyz (asynkron däl) arhitektura we açyk
+            çeşme bolan mugt web we poçta proksi serweridir. “Nginx” -iň ösüşi
+            2002-nji ýylda Rambler üçin Igor Sysoýew tarapyndan başlandy.
+            2004-nji ýylda bolsa köp sanly ulanyjy üçin elýeterli boldy .
+            2011-nji ýyldan başlap, Igoryň öz kompaniýasy 2 ýyldan soň önümiň
+            giňeldilen tölegli wersiýasyny ( Nginx Plus ) çykaran serwer
+            programma üpjünçiligini öndürip başlady . 2019-njy ýylyň ýazynda
+            Nginx-i Amerikanyň uly öndürijisi F5 Networks satyn aldy.
+          </p>
+        </div>
+
+        <img
+          src="../assets/images/nginx_2.webp"
+          style="width: inherit; margin: 0.5rem auto"
+          alt=""
+        />
+        <p class="row">
+          Nginx Unix görnüşli OS-da işleýär we OpenBSD, FreeBSD, Linux, Mac OS
+          X, Solaris-de üstünlikli synag edildi. Windows OS-da ikilik gurnama
+          0.7.52 çykandan soň elýeterli boldy. Häzirki wagtda şeýle meşhur
+          platformalar funksiýany ulanýarlar: Rambler, Begun, Yandex,
+          SourceForge.net, WordPress.com, vkontakte.ru. Statistika Nginx-iň 22,3
+          million web sahypasy we 2,03 million goşmaça işjeň saýt tarapyndan
+          ulanylýandygyny görkezýär.
+        </p>
+        <div class="row">
+          <h1>Nginx-iň işleýşi</h1>
+          <p>
+            Adaty web serwerinden tapawutlylykda, Nginx her talap üçin bir sapak
+            döretmeýär, ony iş baglanyşyklary diýlip atlandyrylýan şol bir
+            görnüşdäki kiçi gurluşlara bölýär. Şeýle baglanyşyklaryň her biri
+            aýratyn iş prosesi bilen işlenýär we ýerine ýetirilenden soň
+            netijäni esasy maglumatlary gaýtadan işlemek prosesine gaýtaryp
+            berýän bir blokda birleşdirilýär. Bir iş baglanyşygy, şol bir wagtyň
+            özünde 1024-e çenli talaby gaýtadan işläp biler.
+          </p>
+          <img
+            src="../assets/images/nginx_3.webp"
+            style="width: inherit; margin: 0.5rem auto"
+            alt=""
+          />
+        </div>
+        <div class="row">
+          <h1>Amaly ulanmak</h1>
+          <ol>
+            <li>
+              <b>Aýry port / IP.</b> Göçürip almak üçin statiki mazmuny ýa-da
+              faýllar köp bolsa , paýlamak üçin aýratyn port ýa-da IP adresi
+              gurup bolar . Köp talap bilen aýratyn serwer gurmak we oňa Nginx-i
+              birikdirmek maslahat berilýär.
+            </li>
+            <li>
+              <b>Tizleşdirilen proksi.</b> Bu ýagdaýda ulanyjynyň statiki
+              mazmuny (suratlar, ýönekeý HTML, JavaScript, CSS faýllary)
+              islegleriniň hemmesi ilki Nginx-e gidýär we olary özbaşdak
+              işleýär. Bu ýagdaýda deslapky kody üýtgetmek talap edilmeýär.
+            </li>
+            <li>
+              <b>Nginx we FastCGI.</b> “FastCGI” tehnologiýasy goldanýan bolsa,
+              “Apache”-ni asla ulanyp bolmaz. Emma bu ýagdaýda skript kodlaryny
+              üýtgetmek zerur bolup biler.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- Second tab -->
+    <div id="expense" class="window-content" style="display: none">
+      <div class="container text-decoration">
+        <h1 style="text-align: center">Apache</h1>
+        <img
+          src="../assets/images/apache_1.webp"
+          alt=""
+          style="width: inherit; margin: 0.5rem auto"
+        />
+        <p>
+          Interneti her dürli saýt bolmasa göz öňüne getirip bolmaýar. Bularyň
+          hemmesi web serwerleriniň hasabyna işleýär.
+        </p>
+        <p>
+          Web serwer ulanyjy bilen fiziki serweriň arasynda "araçy" hökmünde
+          çykyş edýär. Myhmanlardan talap alanda, sahypa bilen katalogda zerur
+          sahypany gözleýär we jogap hökmünde iberýär. Brauzer alnan faýly
+          alýar, gaýtadan işleýär we myhmanyň ekranynda görkezýär.
+        </p>
+        <p>
+          Web serwer maglumatlary, başda HTML sahypalary bilen işlemek üçin
+          döredilen HTTP (HyperText Transfer Protocol) kömegi bilen geçirilýär.
+          Soň bolsa, islendik görnüşdäki faýllary HTTP arkaly ibermek mümkin
+          boldy. Soňky döwürde HTTPS arkaly işleýän saýtlar agdyklyk etdi. Bu,
+          ulanyjy bilen serweriň arasynda TLS / SSL trafik şifrlemesini
+          goldaýanlygy bilen tapawutlanýan HTTP-iň kämilleşdirilen wersiýasydyr.
+        </p>
+        <p>
+          Dünýäde iň meşhur web serweriniň ady, Apache ýa-da gysgaça "Apache"
+          diýlip atlandyrylýan Apache HTTP Serweri tarapyndan 25 ýyldan gowrak
+          wagt bäri saklanýar. Häzirki wagtda bu programma, IBM, eBay, PayPal we
+          Facebook taslamalaryny öz içine alýan ähli serwerleriň 40%-den
+          gowragyna hyzmat edýär.
+        </p>
+        <h4>Taryhy</h4>
+        <p>
+          Apache HTTP Serweri 1995-nji ýylda Illinoýs uniwersitetini (UIUC)
+          dörediji Robert MakKol tarapyndan çykaryldy. Önüm başga bir HTTP
+          müşderisiniň üýtgedilen görnüşi hökmünde döräpdi.
+        </p>
+        <img
+          src="../assets/images/apache_2.webp"
+          alt=""
+          style="width: inherit; margin: 0.5rem auto"
+        />
+        <p>
+          1999-njy ýyldan bäri Apache Programma üpjünçiligi gaznasy ( ASF )
+          önümi - dünýäniň dürli künjeklerinden hünärmen höwesjeňler jemgyýetini
+          ösdürýär we goldaýar. Şol bir girdeji gazanmaýan gaznanyň resmi
+          programma üpjünçiligi ygtyýarnamasy - Apache ygtyýarnamasy döredildi.
+        </p>
+        <p>
+          2000-nji ýylda ASF, Apache 2.0-iň täze wersiýasyny NCSA kody bolmazdan
+          düýbünden täzeden gurlan arhitektura bilen tanyşdyrdy. Şondan bäri web
+          serweri iki esasy şaha - 1.x we 2.x. boýunça işlenip düzüldi.
+        </p>
+        <h4>Apache işleýşi</h4>
+        <img
+          src="../assets/images/apache_3.webp"
+          alt=""
+          style="width: inherit; margin: 0.5rem auto"
+        />
+        <p>
+          Apache ýadrosy C dilinde Apache Programma üpjünçiligi gaznasy
+          tarapyndan işlenip düzüldi. Esasy funksiýalary konfigurasiýa faýly
+          gaýtadan işlemek, HTTP / HTTPS protokoly we modul ýüklemek ybarat
+          bolup dyrýar. Ýadrosy modulsyz işläp biler, ýöne çäkli işlemegine eýe
+          bolar.
+        </p>
+        <h4>Modul ulgamy</h4>
+        <p>
+          Modul aýratyn bir faýl bolup, onuň baglanyşygy ýadrosyň asyl işleýşini
+          giňeldýär. Ilki gurnama wagtynda programma üpjünçiligine goşulyp ýa-da
+          konfigurasiýa faýlyny üýtgedip soň ýükläp bolýar.
+        </p>
+        <p>
+          Olaryň köpüsi, müşderiniň talabyny gaýtadan işlemegiň belli bir tarapy
+          - dürli programmirleme dillerine goldaw, howpsuzlyk, keşi, tanamak we
+          ş.m ybaratdyr. Şeýlelikde, uly mesele birnäçe faza bölünýär, olaryň
+          hersi aýratyn, ýokary ýöriteleşdirilen modul bilen çözülýär.
+        </p>
+        <p>
+          Apache üçin 500-den gowrak modul bardyr. Köp meşhur web programmalary
+          derrew Apache moduly hökmünde goýberilýär. Mysal üçin, ISPmanager we
+          VDSmanager.
+        </p>
+      </div>
+    </div>
+    <!-- Third tab -->
+    <div id="names" class="window-content" style="display: none">
+      <div class="container text-decoration">
+        <h1 style="text-align: center">Nginx vs Apache</h1>
+        <p>
+          Nginx web serweri, Apache bilen deňeşdirilende, statiki hyzmat edende
+          has çalt we serwer çeşmelerini az sarp edýär. Talap gaýtadan işlemegi
+          çaltlaşdyrmak we ýüki azaltmak üçin Apache ýerine ýa-da bilelikde
+          ulanylýar. Munuň sebäbi, Apache-iň hödürleýän aýratynlyklarynyň
+          köpüsiniň ýönekeý ulanyjylaryň köpüsine zerur däldigi bilen
+          baglanyşyklydyr.
+        </p>
+        <img
+          src="../assets/images/nginx_vs_apache.webp"
+          alt=""
+          style="width: inherit; margin: 0.5rem auto"
+        />
+        <p>
+          Nginx-iň giň işlemegi ulgam çeşmelerinden ep-esli talap edýändigi
+          sebäpli, doly hukukly Nginx + Apache bukjasyny yzygiderli ulanmak
+          maslahat berilmeýär. Köplenç web serwerleriniň ikisi hem simbiozda
+          ulanylýar - Nginx statikden ýüz öwürýär we Apache skriptlerini
+          gaýtadan işlemäge gönükdirýär.
+        </p>
+        <h4>Üstünlikleri we kemçilikleri</h4>
+        <ol>
+          <li>
+            Iki serwer hem Unix görnüşli ulgamlarda gowy işleýär, ýöne
+            Windows-da Nginx öndürijiligi ep-esli haýal bolup durýar.
+          </li>
+          <li>
+            Şol bir wagtyň özünde işleýän wagty, Nginx Apache-den iki esse çalt
+            we ýady az ulanýar. Dinamiki mazmun bilen tizligi deňdir.
+          </li>
+          <li>
+            Ulanyjy goldawy üçin foruma ýa-da kompaniýa poçta bilen habarlaşmak
+            mümkindir, ýöne Apache gaznasynda bu meselede kynçylyklary bardyr.
+          </li>
+          <li>
+            Apache birbada birnäçe sahypany ýerleşdirmäge ökde bolup durýar,
+            ýöne Nginx dinamiki mazmun bilen has gowy "çeýeligi" we netijeliligi
+            görkezýär.
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+  <script src="./index.js"></script>
+</html>

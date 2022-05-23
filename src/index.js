@@ -6,10 +6,6 @@ function showTab(event, tabName) {
       tabcontent[i].style.display = "none";   
   }
 
-  // tablinks = document.getElementsByClassName("tablinks");
-  // for ( i=0; i < tablinks.length; i++) {
-  //     tablinks[i].className = tablinks[i].className.replace("active", "");   
-  // }
   document.getElementById(tabName).style.display = "block";
   if (event.currentTarget.className === "active"){
     event.target.classList.remove("active");
@@ -17,6 +13,4 @@ function showTab(event, tabName) {
   else {
     event.target.classList.add("active");
   }
-  // event.currentTarget.className -= " active";
-  // event.currentTarget.className += " active";
 }

@@ -2,7 +2,8 @@ const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 const shell = require('electron').shell
 
-function createWindow () {
+function createWindow() {
+
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -14,18 +15,19 @@ function createWindow () {
   win.loadFile('src/index.html')
   
   
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   
-  const modal = new BrowserWindow({width: 500, height: 250})
+  let modal = new BrowserWindow({ width: 500, height: 250, parent: win, show: false })
+  modal.on('close', () => { modal = null })
   modal.loadFile('src/authors.html')
-
+  
   let menu = Menu.buildFromTemplate([
     {
       label: 'Menu',
       submenu: [
         {
           label: 'Awtorlar',
-          click() {() => modal.show}
+          click() {modal.show()}
         },
         { type: 'separator' },
         {

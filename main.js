@@ -13,6 +13,7 @@ function createWindow () {
 
   win.loadFile('src/index.html')
   
+  
   win.webContents.openDevTools()
   
   const modal = new BrowserWindow({width: 500, height: 250})

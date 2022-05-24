@@ -1,16 +1,24 @@
-function showTab(event, tabName) {
-  //alert('test');
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("window-content");
-  for (i=0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";   
-  }
+$(document).ready(function() {
 
-  document.getElementById(tabName).style.display = "block";
-  if (event.currentTarget.className === "active"){
-    event.target.classList.remove("active");
+  $(".toggle-accordion").on("click", function() {
+    var accordionId = $(this).attr("accordion-id"),
+      numPanelOpen = $(accordionId + ' .collapse.in').length;
+    
+    $(this).toggleClass("active");
+
+    if (numPanelOpen == 0) {
+      openAllPanels(accordionId);
+    } else {
+      closeAllPanels(accordionId);
+    }
+  })
+
+  openAllPanels = function(aId) {
+    console.log("setAllPanelOpen");
+    $(aId + ' .panel-collapse:not(".in")').collapse('show');
   }
-  else {
-    event.target.classList.add("active");
-  }
-}
+  closeAllPanels = function(aId) {
+    console.log("setAllPanelclose");
+    $(aId + ' .panel-collapse.in').collapse('hide');
+  }     
+});
